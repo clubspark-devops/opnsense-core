@@ -168,6 +168,12 @@ abstract class Base
                 $ldap_groups[strtolower(explode(",", substr($member, 3))[0])] = $member;
             }
         }
+        
+        // HACK: Fix for RADIUS
+        foreach (explode(";", $memberof) as $member) {
+                $ldap_groups[strtolower($member)] = $member;
+        }
+        
         // list of enabled groups (all when empty), so we can ignore some local groups if needed
         $sync_groups = !empty($scope) ? $scope : $known_groups;
 
